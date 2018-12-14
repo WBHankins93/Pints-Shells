@@ -7,23 +7,26 @@ A User-friendly platform to locate breweries in and around Austin, TX and also g
 
 
 ## Languages Used
-- React JS
 - HTML
 - CSS
 - JavaScript
-- Node.js
-- Express
-- MongoDB and Mongoose
+- JSX
+- Mongoose
 
 ## APIs Used:
-### Front-End
+- Open Brewery DB
 - Google Maps API
 - Google Places API
 - Google Login
 - Facebook Login
 
+### Front-End
+- React
+
 ### Back-End
-- Open Brewery DB
+- Node
+- Express
+- MongoDB
 
 
 ## Stretch Goals:
