@@ -13,12 +13,13 @@ export default class MenuExampleInvertedSecondary extends Component {
 
     const { activeItem } = this.state
     const style = {
-      fontSize: '20px',
-      marginBottom: '10px'
+      fontSize: '17px',
+      // marginBottom: '5px'
     }
     const headingStyle = {
       color: 'white',
-      marginLeft: '20%'
+      fontSize: '24px',
+      marginLeft: '27%'
     }
 
       const navBar = {
@@ -36,12 +37,11 @@ export default class MenuExampleInvertedSecondary extends Component {
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700|Vidaloka');
       </style>
 
-      <Segment inverted>
+      <Segment inverted >
 
-        <Menu inverted pointing secondary>
-        <div className='logo'>
-         <Image src={require('../images/logoCircle.png')} size='tiny' />
-       </div>
+        <Menu inverted pointing secondary style={{height: '20px'}}>
+
+        <Image src={require('../images/logoCircle.png')} style={{height:'60px', marginTop: '-10px'}}/>
 
 
           <Menu.Item name='home'
@@ -58,7 +58,7 @@ export default class MenuExampleInvertedSecondary extends Component {
 
           </Menu.Item>
 
-          <h1 style={headingStyle} >Pints And Shells</h1>
+          <p style={headingStyle}>Pints And Shells</p>
 
           <Menu.Item name='GitHub'
             position='right'

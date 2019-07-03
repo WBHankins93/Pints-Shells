@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import ReactDOM from "react-dom";
-import Tab from '../Tabs';
-import swal from '@sweetalert/with-react';
-import { CSSTransition } from 'react-transition-group';
+ import swal from '@sweetalert/with-react';
 import './Map.css';
 
  import { GoogleApiWrapper, InfoWindow, Map, Marker, Content, Places, Directions, MapViewDirections, MapView } from 'google-maps-react';
@@ -18,8 +16,6 @@ import './Map.css';
   }
 
   onMarkerClick = (props, marker, e) => {
-
-
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -112,7 +108,7 @@ import './Map.css';
       height: '70%',
       left: '5%',
       position: 'fixed',
-      border: '10px solid black',
+      border: '5px solid black',
     }
 
     // const fadeStyle = {
@@ -149,11 +145,6 @@ import './Map.css';
         >
         <content>
         <div>
-          <CSSTransition
-            in={this.state.showingInfoWindow}
-            appear={true}
-            timeout={600}
-          >
             <Card classNames="fade">
             <Card.Content>
               <Card.Header>{this.state.info.name}</Card.Header>
@@ -168,13 +159,13 @@ import './Map.css';
               <div id="aTour" />
               </Card.Content>
               </Card>
-            </CSSTransition>
+
         </div>
         </content>
 
         </InfoWindow>
       </Map>
-        <Tab tourData={this.state.tourData} />
+
       </div>
     );
   }

@@ -2,8 +2,14 @@
   text-align: center;
   background-color: #C5DDFA;
   background-size: cover;
-  height: 1200px;
+  height: auto;
+  overflow: auto;
   color: red;
+  margin-top: -15px;
+}
+
+body {
+  margin: 0;
 }
 
 div .Navbar {

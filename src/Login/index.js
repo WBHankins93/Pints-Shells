@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { Link } from 'react-router-dom';
+import firebase from '../firebaseConfig/index';
 
 
 class Login extends Component {
@@ -24,23 +25,59 @@ class Login extends Component {
 
   handleSubmit = async (e) => {
 
-   
-    const loginResponse = await fetch('http://localhost:9000/auth', {
-      method: 'POST',
-      credentials: 'include', // this sends our session cookie with our request
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
+    const provider = new firebase.auth.GoogleAuthProvider();
+    console.log(provider)
+    firebase.auth().signInWithPopup(provider)
+    .then(async(user) => {
+      console.log(user)
+      if(user.additionalUserInfo.isNewUser){
+        console.log(firebase.auth().currentUser.uid)
+
+        const userData = user;
+        userData.currentUser = firebase.auth().currentUser.uid;
+
+        const addUserToDB = await fetch('https://us-central1-pintsandshells-e38a2.cloudfunctions.net/createGoogleUser', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(userData)
+        })
+
+        const addUserResponse = addUserToDB.json();
+        console.log(addUserResponse);
+        // const db = firebase.firestore();
+        // db.collection('User').doc(firebase.auth().currentUser.uid)
+        // .set({
+        //   name: user.additionalUserInfo.profile.name,
+        //   id: user.additionalUserInfo.profile.id,
+        //   email: user.additionalUserInfo.profile.email,
+        //   family_name: user.additionalUserInfo.profile.family_name,
+        //   given_name: user.additionalUserInfo.profile.given_name,
+        //   googleUserId: user.user.uid
+        // })
       }
-    });
 
-    const parsedResponse = await loginResponse.json();
-
-    if(parsedResponse.data === 'login successful'){
-      // change our component
-      console.log('success login')
-
-    }
+      // this.props.history.push('/');
+    })
+    // const loginResponse = await fetch('http://localhost:9000/auth/login', {
+    //   method: 'POST',
+    //   credentials: 'include', // this sends our session cookie with our request
+    //   body: JSON.stringify(this.state),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
+    //
+    // const parsedResponse = await loginResponse.json();
+    // console.log(parsedResponse)
+    // if(parsedResponse.data === 'login successful'){
+    //   // change our component
+    //   console.log('success login')
+    //   this.props.history.push('/')
+    //
+    // }
   }
   render(){
 
@@ -63,7 +100,7 @@ class Login extends Component {
 
     }
     const loginStyle = {
-      height: '20px',
+      height: '40px',
       margin: '10px'
     }
 
@@ -90,21 +127,17 @@ class Login extends Component {
       <br />
       <br />
 
-      <div style={loginStyle}>
-        <GoogleLogin
-          clientId="522376826390-qk8a7luadtrs61f2f11lcof7f7g9agdc.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
-          buttonText="LOGIN WITH GOOGLE"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-        />
-      </div>
+      <Button style={loginStyle} onClick={this.handleSubmit}>
+        Google Login
+      </Button>
 
       <Form style={formStyle} onSubmit={this.handleSubmit}>
 
         <Form.Input placeholder='Username' type='text' name="username" onChange={this.handleChange} />
 
         <Form.Input placeholder='Password' type='password' name="password" onChange={this.handleChange} />
-        <Link to='/'><button type="Submit" class="ui inverted black button">Login</button></Link>
+        <Button type="Submit" class="ui inverted black button">Login</Button> <br/><br/>
+        <Link to='/register'><Button class="ui inverted black button">Register</Button></Link>
       </Form>
 
       </div>

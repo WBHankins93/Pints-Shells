@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Grid } from 'semantic-ui-react';
-import Tab from '../Tabs';
 import TacoMapContainer from '../TacoMapContainer';
 import Tacos from '../Tacos'
 import swal from '@sweetalert/with-react';
@@ -36,7 +35,7 @@ class BrewTour extends Component {
     });
 
     const deleteBrewTourJson = deletedBrewTourResponse.json();
-
+    
     this.setState({
       tourData: this.state.tourData.data.filter((tour) => tour._id !== id)
     })
@@ -72,12 +71,7 @@ class BrewTour extends Component {
     let tourData;
     if(this.state.tourData.data) {
 
-
     tourData = this.state.tourData.data.map((item, index) => {
-
-
-
-
 
       return(
         <div key={item._id} style={style}>
